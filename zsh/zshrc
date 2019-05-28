@@ -1,0 +1,98 @@
+DISABLE_AUTO_UPDATE="true"
+source $HOME/.zsh-zgen/zgen.zsh
+
+if ! zgen saved; then
+  echo "Creating a zgen save"
+  
+  zgen oh-my-zsh
+
+  zgen oh-my-zsh plugins/colorize
+  zgen oh-my-zsh plugins/sudo
+  zgen oh-my-zsh plugins/wd
+
+  zgen load Tarrasch/zsh-autoenv
+  zgen load zsh-users/zsh-completions src
+
+  zgen save
+fi
+
+# Load the theme
+source $HOME/.myzshtheme
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f /etc/profile.d/autojump.zsh ] && . /etc/profile.d/autojump.zsh
+
+function cdx { cd $1 ; ls }
+function mkdirx { mkdir -p $1 ; cd $1 }
+
+if (( $+commands[nvim] )) ; then
+	export EDITOR=nvim
+elif (( $+commands[vim] )) ; then
+	export EDITOR=vim
+elif (( $+commands[vi] )) ; then
+	export EDITOR=vi
+else
+	export EDITOR=nano
+fi
+
+##Begin massive list of aliases
+# Aliases for programs/utilities
+alias v='$EDITOR'
+alias sv='sudo $EDITOR'
+alias l='ls'
+alias k='ls'
+alias la='ls -A'
+alias py='python'
+alias py3='python3'
+alias py2='python2'
+
+# Quick access to configuration files
+alias vimzsh='$EDITOR ~/.zshrc'
+
+# Quick access to files
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+
+alias rot26='cat'
+alias c='clear'
+alias quit='exit'
+alias :wq='exit'
+alias :q='exit'
+# Ping various websites to test internet
+alias pgoogle='ping www.google.com'
+alias pexample='ping www.example.com'
+# Use SIGKILL instead of SIGTERM for killall 
+alias kkillall='killall -s SIGKILL'
+
+# Show public IP
+alias pubip='wget http://checkip.dyndns.org/ -O - -o /dev/null | cut -d: -f 2 | cut -d\< -f 1'
+
+# Test network speed (curl-based or wget-based)
+alias curlspeed='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
+alias wgetspeed='wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
+
+# fzf functions
+# vf [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+vf() {
+  IFS='
+'
+  local declare files=($(fzf --query="$1" --select-1 --exit-0))
+  [[ -n "$files" ]] && $EDITOR "${files[@]}"
+  unset IFS
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# Load a custom rc script that is local to this machine (not synced to the dotfiles repo)
+[ -f $HOME/.zsh_local ] && source $HOME/.zsh_local 
+

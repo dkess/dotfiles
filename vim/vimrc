@@ -1,0 +1,34 @@
+set background=dark
+
+let mapleader=","
+
+set relativenumber
+set number
+
+set shiftwidth=4
+set tabstop=4
+
+set ruler
+
+set mouse=a
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer' }
+
+Plug 'sheerun/vim-polyglot'
+
+Plug 'rodjek/vim-puppet'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'nathangrigg/vim-beancount'
+
+call plug#end()
