@@ -1,7 +1,7 @@
 HOSTCOLOR="red"
 if [[ -z "${SSH_CLIENT}" ]]; then
 	HOSTCOLOR="blue"
-elif [[ "$HOST" == "dkess" ]]; then
+elif [[ "$HOST" == "dkess" || "$HOST" == "althea" ]]; then
 	HOSTCOLOR="magenta"
 elif [[ "$HOST" == "lightning" ]]; then
 	HOSTCOLOR="yellow"
