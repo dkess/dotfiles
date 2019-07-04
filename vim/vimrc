@@ -12,6 +12,9 @@ set ruler
 
 set mouse=a
 
+" Disable folds
+set foldlevelstart=99
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-obsession'
