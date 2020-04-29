@@ -39,7 +39,7 @@ fi
 ##Begin massive list of aliases
 # Aliases for programs/utilities
 alias v='$EDITOR'
-alias sv='sudo $EDITOR'
+alias sv='sudoedit'
 alias l='ls'
 alias k='ls'
 alias la='ls -A'
