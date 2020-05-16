@@ -1,42 +1,80 @@
-set background=dark
+call plug#begin('~/.vim/plugged')
 
-let mapleader=","
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-speeddating'
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'rodjek/vim-puppet'
+Plug 'LnL7/vim-nix'
+
+Plug 'nathangrigg/vim-beancount'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+set background=dark
 
 set relativenumber
 set number
 
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
+set expandtab
 
 set ruler
-
 set mouse=a
+
+" Fix my backspaces
+set backspace=indent,eol,start
+
+syntax enable
+
+" Intelligent indentation & tabs
+set autoindent
+set smartindent
+set smarttab
+
+" No backup
+set noswapfile
+
+" Enable filetype detection
+filetype on
+filetype plugin on
+filetype indent on
 
 " Disable folds
 set foldlevelstart=99
 
-call plug#begin('~/.vim/plugged')
+" Toggle hlsearch with F1
+nnoremap <F1> :set hlsearch!<CR>
 
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
+" Toggle paste with F2
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer' }
-
-Plug 'sheerun/vim-polyglot'
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-Plug 'rodjek/vim-puppet'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-Plug 'nathangrigg/vim-beancount'
-
-call plug#end()
+" Toggle line numbers with F3
+nnoremap <F3> :set norelativenumber! nonumber!<CR>
 
 let g:go_metalinter_autosave = 1
 let g:go_fmt_command = "goimports"
+
+let g:LanguageClient_serverCommands = {
+  \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+  \ }
+
+" fzf ctrl+p compatibily
+nnoremap <C-p> :Files<Cr>
+
+" fzf ctrl+f for ripgrep
+nnoremap <C-f> :Rg<Cr>
+
+let g:beancount_detailed_first = 1
