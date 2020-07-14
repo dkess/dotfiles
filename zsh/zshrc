@@ -46,6 +46,7 @@ alias la='ls -A'
 alias py='python'
 alias py3='python3'
 alias py2='python2'
+alias ravzp='rsync -avzP'
 
 # Quick access to configuration files
 alias vimzsh='$EDITOR ~/.zshrc'
@@ -68,7 +69,7 @@ alias pexample='ping www.example.com'
 alias kkillall='killall -s SIGKILL'
 
 # Show public IP
-alias pubip='wget http://checkip.dyndns.org/ -O - -o /dev/null | cut -d: -f 2 | cut -d\< -f 1'
+alias pubip='curl -s https://icanhazip.com/'
 
 # Test network speed (curl-based or wget-based)
 alias curlspeed='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
